@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - enemy
+  - player
+  - hit
+  - Laser
+  - hitIA
+  - FxTemporaire
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Environment
+  - PostProcessingVolumes
+  - GroundPoint
+  - platCollider
+  - platformsPlayer1
+  - platformsPlayer2
+  - player1
+  - player2
+  - noLight
+  - toHide
+  - toHide2
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Canvas
+    uniqueID: 494236693
+    locked: 0
+  - name: Environment
+    uniqueID: 3405961513
+    locked: 0
