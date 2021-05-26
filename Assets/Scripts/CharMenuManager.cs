@@ -23,6 +23,8 @@ public class CharMenuManager : MonoBehaviour
     [SerializeField]
     Button start1, start2;
     bool player1Locked, player2Locked;
+    public AudioSource buttonSound;
+    public AudioSource charButtonSound;
 
     private void Start()
     {
@@ -40,7 +42,8 @@ public class CharMenuManager : MonoBehaviour
     }
     public void ChangeCharacter(int index)
     {
-        for(int i =0; i<characters.Length; i++)
+        charButtonSound.Play();
+        for (int i =0; i<characters.Length; i++)
         {
             characters[i].SetActive(false);
         }
@@ -51,6 +54,7 @@ public class CharMenuManager : MonoBehaviour
 
     public void ChangeCharacter2(int index)
     {
+        charButtonSound.Play();
         for (int i = 0; i < characters2.Length; i++)
         {
             characters2[i].SetActive(false);
@@ -63,6 +67,7 @@ public class CharMenuManager : MonoBehaviour
     public void LockChar1()
     {
         yuraBtn.interactable = false;
+        buttonSound.Play();
         tamachiBtn.interactable = false;
         start1.gameObject.SetActive(false);
         player1Locked = true;
@@ -71,6 +76,7 @@ public class CharMenuManager : MonoBehaviour
     public void LockChar2()
     {
         yuraBtn2.interactable = false;
+        buttonSound.Play();
         tamachiBtn2.interactable = false;
         start2.gameObject.SetActive(false);
         player2Locked = true;

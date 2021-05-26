@@ -33680,7 +33680,35 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: Hurt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: SetFreezePos
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: resetPlayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45833334
     functionName: NoHurt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45833334
+    functionName: SetConstrains
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -16447,6 +16447,36 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
+    path: Armature/Root/Controller/Hip/Thight.L
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Armature/Root/Controller/Hip/Thight.L
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Armature/Root/Controller/Hip/Thight.L
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
     path: Armature/Root/Controller/Hip/Thight.L/Leg.L
     classID: 4
     script: {fileID: 0}
@@ -16558,36 +16588,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
     path: Armature/Root/Controller/Spine1/Spine2/Shoulder.L/Upper_arm.L
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Armature/Root/Controller/Hip/Thight.L
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Armature/Root/Controller/Hip/Thight.L
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Armature/Root/Controller/Hip/Thight.L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -16624,7 +16624,28 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: SetFreezePos
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: resetPlayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
     functionName: Hurt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3333334
+    functionName: SetConstrains
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

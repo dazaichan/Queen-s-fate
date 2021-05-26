@@ -8,6 +8,7 @@ public class EndGameCamera : MonoBehaviour
     public GameObject back, replay, exit;
     public Texture[] playerTexts;
     public RawImage winnerText;
+    public AudioSource winAudio;
 
     private int winner;
     void Start()
@@ -23,6 +24,7 @@ public class EndGameCamera : MonoBehaviour
 
         StartCoroutine(ZoomCamera(Camera.main, -3.2f, 2f));
         StartCoroutine(GameRestart(2f));
+        StartCoroutine(PlayWinAudio(0.4f));
 
     }
 
@@ -50,5 +52,11 @@ public class EndGameCamera : MonoBehaviour
         back.SetActive(true);
         replay.SetActive(true);
         exit.SetActive(true);
+    }
+
+    public IEnumerator PlayWinAudio(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        winAudio.Play();
     }
 }

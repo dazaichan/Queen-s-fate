@@ -36681,7 +36681,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.20833333
+  - time: 0.25
     functionName: activateHit
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -36695,7 +36695,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.375
     functionName: deactivateHit
     data: 
     objectReferenceParameter: {fileID: 0}

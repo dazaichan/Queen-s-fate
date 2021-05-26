@@ -8,7 +8,8 @@ public class test : MonoBehaviour
     {
         if (other.CompareTag("player"))
         {
-                other.GetComponent<HealthManager>().TakeDamage(100);
+            other.GetComponent<HealthManager>().TakeDamage(1);
+            other.GetComponent<Animator>().Play("hurt1");
         }
     }
 }

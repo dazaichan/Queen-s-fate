@@ -35106,8 +35106,29 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1666666
+  - time: 0
+    functionName: SetFreezePos
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: resetPlayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0833334
     functionName: NoHurt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0833334
+    functionName: SetConstrains
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

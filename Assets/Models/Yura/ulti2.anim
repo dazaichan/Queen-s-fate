@@ -67730,6 +67730,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.5
+    functionName: playUltiAudio
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 2.6833334
     functionName: DisableMyCam
     data: 
@@ -67758,7 +67765,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 4
     messageOptions: 0
-  - time: 4.8333335
+  - time: 5.15
     functionName: DisableUltEffects
     data: 
     objectReferenceParameter: {fileID: 0}

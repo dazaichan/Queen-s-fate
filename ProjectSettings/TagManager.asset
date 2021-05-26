@@ -6,10 +6,11 @@ TagManager:
   tags:
   - enemy
   - player
-  - hit
   - Laser
   - hitIA
   - FxTemporaire
+  - player1Hit
+  - player2Hit
   layers:
   - Default
   - TransparentFX

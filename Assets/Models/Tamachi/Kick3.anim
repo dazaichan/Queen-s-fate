@@ -73833,14 +73833,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5416667
+  - time: 0.5833333
     functionName: activateHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
-  - time: 1.25
+  - time: 0.7083333
     functionName: deactivateHit
     data: 
     objectReferenceParameter: {fileID: 0}

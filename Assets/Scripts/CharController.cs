@@ -12,10 +12,14 @@ public class CharController : MonoBehaviour
     public float checkRadius;
     public LayerMask groundLayer;
     public bool covering;
+    public bool hurt;
     public GameObject shield;
     public GameObject ultEffects;
     public Camera myCam;
     public Transform targetCam;
+    public AudioClip[] audios;
+    public AudioClip[] audiosTamachi;
+    public AudioSource audioEffects;
 
     Vector3 playerVelocity;
     Animator charAnim;
@@ -37,6 +41,7 @@ public class CharController : MonoBehaviour
     bool comboPossible;
     bool canJump;
     int comboStep;
+    Vector3 beforeJumpPos;
 
 
     void Start()
@@ -50,6 +55,8 @@ public class CharController : MonoBehaviour
         firing = false;
         canJump = false;
         ulting = false;
+        hurt = false;
+        beforeJumpPos = Vector3.zero;
     }
 
     void Update()
@@ -64,11 +71,23 @@ public class CharController : MonoBehaviour
 
         playerVelocity.x = Input.GetAxis("Horizontal") * maxWalkSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded && !covering && !firing && !kicking && !ulting)
+        if (Input.GetKeyDown(KeyCode.W) && grounded && !covering && !firing && !kicking && !ulting && !hurt)
         {
             jumping = true;
+            beforeJumpPos = this.transform.position;
             playerVelocity.y = jumpSpeed;
             charAnim.SetBool("isJumping", true);
+            if (this.name == "YuraPlayer")
+            {
+                this.GetComponent<AudioSource>().clip = audios[0];
+            }
+            else
+            {
+                this.GetComponent<AudioSource>().clip = audiosTamachi[0];
+            }
+            this.GetComponent<AudioSource>().pitch = 1f;
+            this.GetComponent<AudioSource>().volume = 1f;
+            this.GetComponent<AudioSource>().Play();
         }
         else if (grounded && !jumping)
         {
@@ -80,12 +99,12 @@ public class CharController : MonoBehaviour
             playerVelocity.y = rigidbody.velocity.y;
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && grounded && !covering && !firing && !ulting)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded && !covering && !firing && !ulting && !hurt && !jumping)
         {
             Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.B) && grounded && !covering && !kicking && !ulting)
+        if (Input.GetKeyDown(KeyCode.Alpha4) && grounded && !covering && !kicking && !ulting && !hurt && !jumping)
         {
             if (transform.GetComponent<FireChargeManager>().m_CurrentHealth == 100)
             {
@@ -93,29 +112,63 @@ public class CharController : MonoBehaviour
                 charAnim.SetBool("isFiring", true);
                 firing = true;
                 transform.GetComponent<FireChargeManager>().m_CurrentHealth = 0;
+                if (this.name == "YuraPlayer")
+                {
+                    this.GetComponent<AudioSource>().clip = audios[5];
+                    this.GetComponent<AudioSource>().volume = 0.3f;
+                }
+                else
+                {
+                    this.GetComponent<AudioSource>().clip = audiosTamachi[5];
+                    this.GetComponent<AudioSource>().volume = 1f;
+                }
+                this.GetComponent<AudioSource>().pitch = 1f;
+                this.GetComponent<AudioSource>().Play();
             }
         }
 
-        if (Input.GetKey(KeyCode.V) && grounded && !kicking && !firing && !covering)
+        if (Input.GetKey(KeyCode.Alpha5) && grounded && !kicking && !firing && !covering && !hurt && !jumping)
         {
             if (transform.GetComponent<UltiChargeManager>().m_CurrentHealth == 100)
             {
                 SetFreezePos();
                 charAnim.SetBool("tryUlt", true);
+                if (this.name == "YuraPlayer")
+                {
+                    this.GetComponent<AudioSource>().clip = audios[7];
+                }
+                else
+                {
+                    this.GetComponent<AudioSource>().clip = audiosTamachi[7];
+                }
+                this.GetComponent<AudioSource>().pitch = 1f;
+                this.GetComponent<AudioSource>().volume = 1f;
+                this.GetComponent<AudioSource>().Play();
                 ulting = true;
                 transform.GetComponent<UltiChargeManager>().m_CurrentHealth = 0;
             }
 
         }
 
-        if (Input.GetKey(KeyCode.H) && grounded && !kicking && !firing && !ulting)
+        if (Input.GetKey(KeyCode.S) && grounded && !kicking && !firing && !ulting && !hurt && !jumping)
         {
             SetFreezePos();
             charAnim.SetBool("isCovering", true);
+            if (this.name == "YuraPlayer")
+            {
+                this.GetComponent<AudioSource>().clip = audios[1];
+            }
+            else
+            {
+                this.GetComponent<AudioSource>().clip = audiosTamachi[1];
+            }
+            this.GetComponent<AudioSource>().pitch = 1f;
+            this.GetComponent<AudioSource>().volume = 1f;
+            this.GetComponent<AudioSource>().Play();
             shield.SetActive(true);
             covering = true;
         }
-        else if (!kicking && !firing && !ulting)
+        else if (!kicking && !firing && !ulting && !hurt)
         {
             charAnim.SetBool("isCovering", false);
             covering = false;
@@ -124,7 +177,7 @@ public class CharController : MonoBehaviour
         }
 
         rigidbody.velocity = playerVelocity;
-        if (playerVelocity.x != 0 && grounded && !jumping)
+        if (playerVelocity.x != 0 && grounded && !jumping && !hurt)
         {
             if (!covering && !firing && !ulting && !kicking)
             {
@@ -135,7 +188,7 @@ public class CharController : MonoBehaviour
         {
             charAnim.SetBool("isWalking", false);
         }
-        if (!kicking && !covering && !firing && !ulting)
+        if (!kicking && !covering && !firing && !ulting && !hurt)
         {
             if (playerVelocity.x < 0)
             {
@@ -165,7 +218,7 @@ public class CharController : MonoBehaviour
 
     public void SetFreezePos()
     {
-        rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     public void SetConstrains()
@@ -206,6 +259,10 @@ public class CharController : MonoBehaviour
             }
             fire.SetActive(true);
             fire.GetComponent<BoxCollider>().enabled = false;
+            audioEffects.clip = audiosTamachi[6];
+            audioEffects.pitch = 1f;
+            audioEffects.volume = 0.5f;
+            audioEffects.Play();
         }
         else
         {
@@ -223,7 +280,12 @@ public class CharController : MonoBehaviour
             }
             fire.SetActive(true);
             fire.GetComponent<BoxCollider>().enabled = false;
+            audioEffects.clip = audios[6];
+            audioEffects.pitch = 0.5f;
+            audioEffects.volume = 1f;
+            audioEffects.Play();
         }
+
     }
 
     public void EnableFireCollider()
@@ -303,10 +365,77 @@ public class CharController : MonoBehaviour
     public void EnableUltEffects()
     {
         ultEffects.SetActive(true);
+        if (this.name == "YuraPlayer")
+        {
+            audioEffects.clip = audios[9];
+        }
+        else
+        {
+            audioEffects.clip = audiosTamachi[9];
+        }
     }
 
     public void DisableUltEffects()
     {
         ultEffects.SetActive(false);
+    }
+    public void Hurt()
+    {
+        hurt = true;
+    }
+
+    public void NoHurt()
+    {
+        hurt = false;
+    }
+
+    public void resetPlayer()
+    {
+        DisableUltEffects();
+        DeactivateFire();
+        ComboReset();
+        for(int i = 0; i<hitColliders.Length; i++)
+        {
+            hitColliders[i].SetActive(false);
+        }
+        jumping = false;
+        covering = false;
+        kicking = false;
+        firing = false;
+        canJump = false;
+        ulting = false;
+    }
+
+    public void cancelJump()
+    {
+        if (jumping)
+        {
+            this.transform.position = beforeJumpPos;
+        }
+    }
+
+    public void adjustOrientation(Transform enemyTransform)
+    {
+        if (this.transform.localScale.z < 0 && enemyTransform.localScale.z > 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, 0.6f);
+        }
+        else if (this.transform.localScale.z > 0 && enemyTransform.localScale.z < 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, -0.6f);
+        }
+    }
+
+    public void playUltiAudio()
+    {
+        if (this.name == "YuraPlayer")
+        {
+            this.GetComponent<AudioSource>().clip = audios[8];
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().clip = audiosTamachi[8];
+        }
+        this.GetComponent<AudioSource>().Play();
     }
 }

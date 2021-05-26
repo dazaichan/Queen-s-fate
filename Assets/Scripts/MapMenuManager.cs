@@ -8,6 +8,8 @@ public class MapMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject[] maps;
     private int mapIndex;
+    public AudioSource buttonSound;
+    public AudioSource mapButtonSound;
 
     private void Start()
     {
@@ -16,7 +18,8 @@ public class MapMenuManager : MonoBehaviour
 
     public void ChangeMap(int index)
     {
-        for(int i =0; i< maps.Length; i++)
+        mapButtonSound.Play();
+        for (int i =0; i< maps.Length; i++)
         {
             maps[i].SetActive(false);
         }
@@ -26,6 +29,7 @@ public class MapMenuManager : MonoBehaviour
 
     public void GameStart()
     {
+        buttonSound.Play();
         PlayerPrefs.SetInt("mapSelected", mapIndex);
         if (mapIndex == 0)
         {
