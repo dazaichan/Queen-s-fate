@@ -18,7 +18,7 @@ public class ultDamage : MonoBehaviour
                 if (other.name == "YuraIA")
                 {
                     other.GetComponent<AudioSource>().clip = damageAudioUlti;
-                    other.GetComponent<AudioSource>().volume = 0.2f;
+                    other.GetComponent<AudioSource>().volume = 0.6f;
                     other.GetComponent<AudioSource>().Play();
                 }
                 else
@@ -40,7 +40,7 @@ public class ultDamage : MonoBehaviour
                 if (other.name == "YuraPlayer")
                 {
                     other.GetComponent<AudioSource>().clip = damageAudioUlti;
-                    other.GetComponent<AudioSource>().volume = 0.2f;
+                    other.GetComponent<AudioSource>().volume = 0.6f;
                     other.GetComponent<AudioSource>().Play();
                 }
                 else

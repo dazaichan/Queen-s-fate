@@ -18,7 +18,7 @@ public class checkHitFire : MonoBehaviour
                     other.GetComponent<HealthManager>().TakeDamage(12);
                     other.GetComponent<Animator>().Play("hurt3");
                     other.GetComponent<CharControllerPlayer2>().cancelJump();
-                    other.GetComponent<CharControllerPlayer2>().adjustOrientation(myOrientation);
+                    //other.GetComponent<CharControllerPlayer2>().adjustOrientation(myOrientation);
                 }
                 else
                 {
@@ -27,7 +27,7 @@ public class checkHitFire : MonoBehaviour
                 if (other.name == "YuraIA")
                 {
                     other.GetComponent<AudioSource>().clip = damageAudioFire;
-                    other.GetComponent<AudioSource>().volume = 0.2f;
+                    other.GetComponent<AudioSource>().volume = 0.6f;
                     other.GetComponent<AudioSource>().Play();
                 }
                 else
@@ -48,7 +48,7 @@ public class checkHitFire : MonoBehaviour
                     other.GetComponent<HealthManager>().TakeDamage(12);
                     other.GetComponent<Animator>().Play("hurt3");
                     other.GetComponent<CharController>().cancelJump();
-                    other.GetComponent<CharController>().adjustOrientation(myOrientation);
+                    //other.GetComponent<CharController>().adjustOrientation(myOrientation);
                 }
                 else
                 {
@@ -57,7 +57,7 @@ public class checkHitFire : MonoBehaviour
                 if (other.name == "YuraPlayer")
                 {
                     other.GetComponent<AudioSource>().clip = damageAudioFire;
-                    other.GetComponent<AudioSource>().volume = 0.2f;
+                    other.GetComponent<AudioSource>().volume = 0.6f;
                     other.GetComponent<AudioSource>().Play();
                 }
                 else

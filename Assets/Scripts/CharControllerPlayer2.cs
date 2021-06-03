@@ -6,6 +6,7 @@ public class CharControllerPlayer2 : MonoBehaviour
 {
     public GameObject[] hitColliders;
     public GameObject fire;
+    public GameObject[] enemies;
     public float maxWalkSpeed;
     public float jumpSpeed;
     public GameObject groundPoint;
@@ -77,7 +78,7 @@ public class CharControllerPlayer2 : MonoBehaviour
             beforeJumpPos = this.transform.position;
             playerVelocity.y = jumpSpeed;
             charAnim.SetBool("isJumping", true);
-            if (this.name == "YuraPlayer")
+            if (this.name == "YuraIA")
             {
                 this.GetComponent<AudioSource>().clip = audios[0];
             }
@@ -110,7 +111,7 @@ public class CharControllerPlayer2 : MonoBehaviour
             {
                 SetFreezePos();
                 charAnim.SetBool("isFiring", true);
-                if (this.name == "YuraPlayer")
+                if (this.name == "YuraIA")
                 {
                     this.GetComponent<AudioSource>().clip = audios[5];
                     this.GetComponent<AudioSource>().volume = 0.3f;
@@ -133,7 +134,7 @@ public class CharControllerPlayer2 : MonoBehaviour
             {
                 SetFreezePos();
                 charAnim.SetBool("tryUlt", true);
-                if (this.name == "YuraPlayer")
+                if (this.name == "YuraIA")
                 {
                     this.GetComponent<AudioSource>().clip = audios[7];
                 }
@@ -152,17 +153,6 @@ public class CharControllerPlayer2 : MonoBehaviour
         {
             SetFreezePos();
             charAnim.SetBool("isCovering", true);
-            if (this.name == "YuraPlayer")
-            {
-                this.GetComponent<AudioSource>().clip = audios[1];
-            }
-            else
-            {
-                this.GetComponent<AudioSource>().clip = audiosTamachi[1];
-            }
-            this.GetComponent<AudioSource>().pitch = 1f;
-            this.GetComponent<AudioSource>().volume = 1f;
-            this.GetComponent<AudioSource>().Play();
             shield.SetActive(true);
             covering = true;
         }
@@ -203,7 +193,13 @@ public class CharControllerPlayer2 : MonoBehaviour
     {
         jumping = false;
     }
-
+    public void CheckSetJumping()
+    {
+        if (Physics.OverlapSphere(groundPoint.transform.position, checkRadius, groundLayer).Length > 0)
+        {
+            jumping = false;
+        }
+    }
     public void SetKicking()
     {
         kicking = true;
@@ -412,8 +408,30 @@ public class CharControllerPlayer2 : MonoBehaviour
         }
     }
 
-    public void adjustOrientation(Transform enemyTransform)
+    /*(public void adjustOrientation(Transform enemyTransform)
     {
+        if (this.transform.localScale.z < 0 && enemyTransform.localScale.z > 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, 0.6f);
+        }
+        else if (this.transform.localScale.z > 0 && enemyTransform.localScale.z < 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, -0.6f);
+        }
+    }*/
+
+    public void adjustOrientation()
+    {
+        Transform enemyTransform;
+        if (enemies[0] != null)
+        {
+            enemyTransform = enemies[0].transform;
+        }
+        else
+        {
+            enemyTransform = enemies[1].transform;
+        }
+
         if (this.transform.localScale.z < 0 && enemyTransform.localScale.z > 0)
         {
             this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, 0.6f);
@@ -434,6 +452,21 @@ public class CharControllerPlayer2 : MonoBehaviour
         {
             this.GetComponent<AudioSource>().clip = audiosTamachi[8];
         }
+        this.GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayCoverAudio()
+    {
+        if (this.name == "YuraIA")
+        {
+            this.GetComponent<AudioSource>().clip = audios[1];
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().clip = audiosTamachi[1];
+        }
+        this.GetComponent<AudioSource>().pitch = 1f;
+        this.GetComponent<AudioSource>().volume = 1f;
         this.GetComponent<AudioSource>().Play();
     }
 }

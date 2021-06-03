@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharController : MonoBehaviour
 {
     public GameObject[] hitColliders;
+    public GameObject[] enemies;
     public GameObject fire;
     public float maxWalkSpeed;
     public float jumpSpeed;
@@ -94,6 +95,7 @@ public class CharController : MonoBehaviour
             charAnim.SetBool("isJumping", false);
             playerVelocity.y = rigidbody.velocity.y;
         }
+
         else
         {
             playerVelocity.y = rigidbody.velocity.y;
@@ -154,17 +156,7 @@ public class CharController : MonoBehaviour
         {
             SetFreezePos();
             charAnim.SetBool("isCovering", true);
-            if (this.name == "YuraPlayer")
-            {
-                this.GetComponent<AudioSource>().clip = audios[1];
-            }
-            else
-            {
-                this.GetComponent<AudioSource>().clip = audiosTamachi[1];
-            }
-            this.GetComponent<AudioSource>().pitch = 1f;
-            this.GetComponent<AudioSource>().volume = 1f;
-            this.GetComponent<AudioSource>().Play();
+
             shield.SetActive(true);
             covering = true;
         }
@@ -204,6 +196,14 @@ public class CharController : MonoBehaviour
     public void SetJumping()
     {
         jumping = false;
+    }
+
+    public void CheckSetJumping()
+    {
+        if (Physics.OverlapSphere(groundPoint.transform.position, checkRadius, groundLayer).Length > 0)
+        {
+            jumping = false;
+        }
     }
 
     public void SetKicking()
@@ -414,8 +414,30 @@ public class CharController : MonoBehaviour
         }
     }
 
-    public void adjustOrientation(Transform enemyTransform)
+    /*public void adjustOrientation(Transform enemyTransform)
     {
+        if (this.transform.localScale.z < 0 && enemyTransform.localScale.z > 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, 0.6f);
+        }
+        else if (this.transform.localScale.z > 0 && enemyTransform.localScale.z < 0)
+        {
+            this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, -0.6f);
+        }
+    }*/
+
+    public void adjustOrientation()
+    {
+        Transform enemyTransform;
+        if (enemies[0] != null)
+        {
+            enemyTransform = enemies[0].transform;
+        }
+        else
+        {
+            enemyTransform = enemies[1].transform;
+        }
+
         if (this.transform.localScale.z < 0 && enemyTransform.localScale.z > 0)
         {
             this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, 0.6f);
@@ -436,6 +458,21 @@ public class CharController : MonoBehaviour
         {
             this.GetComponent<AudioSource>().clip = audiosTamachi[8];
         }
+        this.GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayCoverAudio()
+    {
+        if (this.name == "YuraPlayer")
+        {
+            this.GetComponent<AudioSource>().clip = audios[1];
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().clip = audiosTamachi[1];
+        }
+        this.GetComponent<AudioSource>().pitch = 1f;
+        this.GetComponent<AudioSource>().volume = 1f;
         this.GetComponent<AudioSource>().Play();
     }
 }

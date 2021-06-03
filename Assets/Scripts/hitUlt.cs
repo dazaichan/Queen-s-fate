@@ -16,7 +16,7 @@ public class hitUlt : MonoBehaviour
                 {
                     this.gameObject.SetActive(false);
                     other.GetComponent<CharControllerPlayer2>().cancelJump();
-                    other.GetComponent<CharControllerPlayer2>().adjustOrientation(currentPlayer.transform);
+                    //other.GetComponent<CharControllerPlayer2>().adjustOrientation(currentPlayer.transform);
                     other.GetComponent<CharControllerPlayer2>().enabled = false;
                     charAnim.Play("ulti2");
                 }
@@ -30,7 +30,7 @@ public class hitUlt : MonoBehaviour
                 {
                     this.gameObject.SetActive(false);
                     other.GetComponent<CharController>().cancelJump();
-                    other.GetComponent<CharController>().adjustOrientation(currentPlayer.transform);
+                    //other.GetComponent<CharController>().adjustOrientation(currentPlayer.transform);
                     other.GetComponent<CharController>().enabled = false;
                     charAnim.Play("ulti2");
 

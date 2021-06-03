@@ -26,11 +26,11 @@ public class checkHit2 : MonoBehaviour
                     other.GetComponent<HealthManager>().TakeDamage(5);
                     other.GetComponent<Animator>().Play("hurt2");
                     other.GetComponent<CharControllerPlayer2>().cancelJump();
-                    other.GetComponent<CharControllerPlayer2>().adjustOrientation(myOrientation);
+                    //other.GetComponent<CharControllerPlayer2>().adjustOrientation(myOrientation);
                     if (other.name == "YuraIA")
                     {
                         other.GetComponent<AudioSource>().clip = damageAudio2;
-                        other.GetComponent<AudioSource>().volume = 0.2f;
+                        other.GetComponent<AudioSource>().volume = 1f;
                         other.GetComponent<AudioSource>().Play();
                     }
                     else
@@ -66,11 +66,11 @@ public class checkHit2 : MonoBehaviour
                     other.GetComponent<HealthManager>().TakeDamage(5);
                     other.GetComponent<Animator>().Play("hurt2");
                     other.GetComponent<CharController>().cancelJump();
-                    other.GetComponent<CharController>().adjustOrientation(myOrientation);
+                    //other.GetComponent<CharController>().adjustOrientation(myOrientation);
                     if (other.name == "YuraPlayer")
                     {
                         other.GetComponent<AudioSource>().clip = damageAudio2;
-                        other.GetComponent<AudioSource>().volume = 0.2f;
+                        other.GetComponent<AudioSource>().volume = 1f;
                         other.GetComponent<AudioSource>().Play();
                     }
                     else
