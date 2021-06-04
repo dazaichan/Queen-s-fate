@@ -23,7 +23,7 @@ public class UltiChargeManager : MonoBehaviour
 
     private void Update()
     {
-        LoadBar(0.05f);
+        LoadBar(0.015f);
     }
 
     public void LoadBar(float amount)

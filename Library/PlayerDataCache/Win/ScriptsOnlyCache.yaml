@@ -22,7 +22,7 @@ ScriptsOnlyBuild:
     - csDestroyEffect
     - dieFalling
     - hitUlt
-    - test
+    - pauseManager
     - ultDamage
     Cinemachine.dll:
     - Cinemachine.CinemachineBrain
@@ -85,8 +85,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -1122,6 +1124,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14266}
     - Class: 114
+      Script: {instanceID: 14466}
+    - Class: 114
       Script: {instanceID: 14530}
     - Class: 114
       Script: {instanceID: 14660}
@@ -1134,7 +1138,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14804}
     - Class: 114
-      Script: {instanceID: 15006}
+      Script: {instanceID: 14808}
     - Class: 114
       Script: {instanceID: 15048}
     - Class: 114
@@ -1147,6 +1151,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 16346}
     - Class: 114
       Script: {instanceID: 16446}
+    - Class: 114
+      Script: {instanceID: 102918}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -1257,6 +1263,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14266}
     - Class: 114
+      Script: {instanceID: 14466}
+    - Class: 114
       Script: {instanceID: 14530}
     - Class: 114
       Script: {instanceID: 14660}
@@ -1269,7 +1277,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14804}
     - Class: 114
-      Script: {instanceID: 15006}
+      Script: {instanceID: 14808}
     - Class: 114
       Script: {instanceID: 15048}
     - Class: 114
@@ -1280,6 +1288,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 16284}
     - Class: 114
       Script: {instanceID: 16346}
+    - Class: 114
+      Script: {instanceID: 16446}
+    - Class: 114
+      Script: {instanceID: 102918}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -1832,7 +1844,7 @@ ScriptsOnlyBuild:
     className: CameraSwitcher
   - hash:
       serializedVersion: 2
-      Hash: 0182ccbeae1e66531b689acfda875845
+      Hash: 148aa11c11ec29e7a36e3c2d27cd773f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CharControllerPlayer2
@@ -1850,7 +1862,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 0182ccbeae1e66531b689acfda875845
+      Hash: 59b576d1b3ecec49f460f6231d88d1c8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CharController
@@ -2774,12 +2786,6 @@ ScriptsOnlyBuild:
     className: CinemachineBrain
   - hash:
       serializedVersion: 2
-      Hash: c2f5854e31ffa74b145d2f56b6ef0515
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CharControllerTamachi
-  - hash:
-      serializedVersion: 2
       Hash: f1d735cc1a21c3704ab52568f4fbfcf8
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner
@@ -2910,6 +2916,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 930b2a7c015542327cee6af349728cdd
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: pauseManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/mainScreen.unity

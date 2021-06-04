@@ -39,8 +39,9 @@ public class CharControllerPlayer2 : MonoBehaviour
     bool firing;
     [SerializeField]
     bool ulting;
+    [SerializeField]
+    bool falling;
     bool comboPossible;
-    bool canJump;
     int comboStep;
     Vector3 beforeJumpPos;
 
@@ -54,137 +55,149 @@ public class CharControllerPlayer2 : MonoBehaviour
         covering = false;
         kicking = false;
         firing = false;
-        canJump = false;
         ulting = false;
         hurt = false;
+        falling = false;
         beforeJumpPos = Vector3.zero;
     }
 
     void Update()
     {
-        myCam.transform.LookAt(targetCam);
-
-        var main = fireParticles.main;
-        main.simulationSpeed = 2;
-
-        if (Physics.OverlapSphere(groundPoint.transform.position, checkRadius, groundLayer).Length > 0 && !jumping) grounded = true;
-        else grounded = false;
-
-        playerVelocity.x = Input.GetAxis("HorizontalPlayer2") * maxWalkSpeed;
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && grounded && !covering && !firing && !kicking && !ulting && !hurt)
+        if (!pauseManager.gamePaused)
         {
-            jumping = true;
-            beforeJumpPos = this.transform.position;
-            playerVelocity.y = jumpSpeed;
-            charAnim.SetBool("isJumping", true);
-            if (this.name == "YuraIA")
+            myCam.transform.LookAt(targetCam);
+
+            var main = fireParticles.main;
+            main.simulationSpeed = 2;
+
+            if (Physics.OverlapSphere(groundPoint.transform.position, checkRadius, groundLayer).Length > 0 && !jumping) grounded = true;
+            else grounded = false;
+
+            if (!grounded)
             {
-                this.GetComponent<AudioSource>().clip = audios[0];
+                falling = true;
             }
             else
             {
-                this.GetComponent<AudioSource>().clip = audiosTamachi[0];
+                falling = false;
             }
-            this.GetComponent<AudioSource>().volume = 1f;
-            this.GetComponent<AudioSource>().pitch = 1f;
-            this.GetComponent<AudioSource>().Play();
-        }
-        else if (grounded && !jumping)
-        {
-            charAnim.SetBool("isJumping", false);
-            playerVelocity.y = rigidbody.velocity.y;
-        }
-        else
-        {
-            playerVelocity.y = rigidbody.velocity.y;
-        }
 
-        if (Input.GetKeyDown(KeyCode.Keypad0) && grounded && !covering && !firing && !ulting && !hurt && !jumping)
-        {
-            Attack();
-        }
+            playerVelocity.x = Input.GetAxis("HorizontalPlayer2") * maxWalkSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Keypad1) && grounded && !covering && !kicking && !ulting && !hurt && !jumping)
-        {
-            if (transform.GetComponent<FireChargeManager>().m_CurrentHealth == 100)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && grounded && !covering && !firing && !kicking && !ulting && !hurt)
             {
-                SetFreezePos();
-                charAnim.SetBool("isFiring", true);
+                jumping = true;
+                beforeJumpPos = this.transform.position;
+                playerVelocity.y = jumpSpeed;
+                charAnim.SetBool("isJumping", true);
                 if (this.name == "YuraIA")
                 {
-                    this.GetComponent<AudioSource>().clip = audios[5];
-                    this.GetComponent<AudioSource>().volume = 0.3f;
+                    this.GetComponent<AudioSource>().clip = audios[0];
                 }
                 else
                 {
-                    this.GetComponent<AudioSource>().clip = audiosTamachi[5];
-                    this.GetComponent<AudioSource>().volume = 2f;
+                    this.GetComponent<AudioSource>().clip = audiosTamachi[0];
                 }
-                this.GetComponent<AudioSource>().pitch = 1f;
-                this.GetComponent<AudioSource>().Play();
-                firing = true;
-                transform.GetComponent<FireChargeManager>().m_CurrentHealth = 0;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Keypad2) && grounded && !kicking && !firing && !covering && !hurt && !jumping)
-        {
-            if (transform.GetComponent<UltiChargeManager>().m_CurrentHealth == 100)
-            {
-                SetFreezePos();
-                charAnim.SetBool("tryUlt", true);
-                if (this.name == "YuraIA")
-                {
-                    this.GetComponent<AudioSource>().clip = audios[7];
-                }
-                else
-                {
-                    this.GetComponent<AudioSource>().clip = audiosTamachi[7];
-                }
-                this.GetComponent<AudioSource>().pitch = 1f;
                 this.GetComponent<AudioSource>().volume = 1f;
+                this.GetComponent<AudioSource>().pitch = 1f;
                 this.GetComponent<AudioSource>().Play();
-                ulting = true;
-                transform.GetComponent<UltiChargeManager>().m_CurrentHealth = 0;
             }
-        }
-        if (Input.GetKey(KeyCode.DownArrow) && grounded && !kicking && !firing && !ulting && !hurt && !jumping)
-        {
-            SetFreezePos();
-            charAnim.SetBool("isCovering", true);
-            shield.SetActive(true);
-            covering = true;
-        }
-        else if (!kicking && !firing && !ulting && !hurt)
-        {
-            charAnim.SetBool("isCovering", false);
-            covering = false;
-            SetConstrains();
-            shield.SetActive(false);
-        }
+            else if (grounded && !jumping)
+            {
+                charAnim.SetBool("isJumping", false);
+                playerVelocity.y = rigidbody.velocity.y;
+            }
+            else
+            {
+                playerVelocity.y = rigidbody.velocity.y;
+            }
 
-        rigidbody.velocity = playerVelocity;
-        if (playerVelocity.x != 0 && grounded && !jumping && !hurt)
-        {
-            if (!covering && !firing && !ulting && !kicking)
+            if (Input.GetKeyDown(KeyCode.Keypad0) && grounded && !covering && !firing && !ulting && !hurt && !jumping)
             {
-                charAnim.SetBool("isWalking", true);
+                Attack();
             }
-        }
-        else
-        {
-            charAnim.SetBool("isWalking", false);
-        }
-        if (!kicking && !covering && !firing && !ulting && !hurt)
-        {
-            if (playerVelocity.x < 0)
+
+            if (Input.GetKeyDown(KeyCode.Keypad1) && grounded && !covering && !kicking && !ulting && !hurt && !jumping)
             {
-                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, left);
+                if (transform.GetComponent<FireChargeManager>().m_CurrentHealth == 100)
+                {
+                    SetFreezePos();
+                    charAnim.SetBool("isFiring", true);
+                    if (this.name == "YuraIA")
+                    {
+                        this.GetComponent<AudioSource>().clip = audios[5];
+                        this.GetComponent<AudioSource>().volume = 0.7f;
+                    }
+                    else
+                    {
+                        this.GetComponent<AudioSource>().clip = audiosTamachi[5];
+                        this.GetComponent<AudioSource>().volume = 2f;
+                    }
+                    this.GetComponent<AudioSource>().pitch = 1f;
+                    this.GetComponent<AudioSource>().Play();
+                    firing = true;
+                    transform.GetComponent<FireChargeManager>().m_CurrentHealth = 0;
+                }
             }
-            else if (playerVelocity.x > 0)
+
+            if (Input.GetKeyDown(KeyCode.Keypad2) && grounded && !kicking && !firing && !covering && !hurt && !jumping)
             {
-                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, right);
+                if (transform.GetComponent<UltiChargeManager>().m_CurrentHealth == 100)
+                {
+                    SetFreezePos();
+                    charAnim.SetBool("tryUlt", true);
+                    if (this.name == "YuraIA")
+                    {
+                        this.GetComponent<AudioSource>().clip = audios[7];
+                    }
+                    else
+                    {
+                        this.GetComponent<AudioSource>().clip = audiosTamachi[7];
+                    }
+                    this.GetComponent<AudioSource>().pitch = 1f;
+                    this.GetComponent<AudioSource>().volume = 1f;
+                    this.GetComponent<AudioSource>().Play();
+                    ulting = true;
+                    transform.GetComponent<UltiChargeManager>().m_CurrentHealth = 0;
+                }
+            }
+            if (Input.GetKey(KeyCode.DownArrow) && grounded && !kicking && !firing && !ulting && !hurt && !jumping)
+            {
+                SetFreezePos();
+                charAnim.SetBool("isCovering", true);
+                shield.SetActive(true);
+                covering = true;
+            }
+            else if (!kicking && !firing && !ulting && !hurt)
+            {
+                charAnim.SetBool("isCovering", false);
+                covering = false;
+                SetConstrains();
+                shield.SetActive(false);
+            }
+
+            rigidbody.velocity = playerVelocity;
+            if (playerVelocity.x != 0 && grounded && !jumping && !hurt)
+            {
+                if (!covering && !firing && !ulting && !kicking)
+                {
+                    charAnim.SetBool("isWalking", true);
+                }
+            }
+            else
+            {
+                charAnim.SetBool("isWalking", false);
+            }
+            if (!kicking && !covering && !firing && !ulting && !hurt)
+            {
+                if (playerVelocity.x < 0)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, left);
+                }
+                else if (playerVelocity.x > 0)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, right);
+                }
             }
         }
     }
@@ -396,7 +409,6 @@ public class CharControllerPlayer2 : MonoBehaviour
         covering = false;
         kicking = false;
         firing = false;
-        canJump = false;
         ulting = false;
     }
 

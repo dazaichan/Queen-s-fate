@@ -23,7 +23,7 @@ public class FireChargeManager : MonoBehaviour
 
     private void Update()
     {
-        LoadBar(0.05f);
+        LoadBar(0.03f);
     }
 
     public void LoadBar(float amount)
